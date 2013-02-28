@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.shrekwang.oi</groupId>
+  <artifactId>object-inspector</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+
+  <name>object-inspector</name>
+  <url>http://shrekwang.github.com/object-inspector/</url>
+
+  <licenses>
+    <license>
+      <name>Apache License Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>shrek wang</name>
+    <url>https://github.com/shrekwang</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>shrek.wang</id>
+      <name>shrek wang</name>
+      <email>shrek.wang@gmail.com</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/shrekwang/object-inspector</url>
+    <connection>scm:git:git://github.com/shrekwang/object-inspector.git</connection>
+    <developerConnection>scm:git:git@github.com:shrekwang/object-inspector.git</developerConnection>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub issues</system>
+    <url>https://github.com/shrekwang/object-inspector/issues</url>
+  </issueManagement>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!--Compiler flags-->
+    <build.debug>true</build.debug>
+    <build.optimize>false</build.optimize>
+
+  </properties>
+
+  <dependencies>
+   
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <!-- <defaultGoal>test</defaultGoal> -->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <target>1.6</target>
+          <source>1.6</source>
+          <debug>${build.debug}</debug>
+          <optimize>${build.optimize}</optimize>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestFile>src/main/resources/manifest.mf</manifestFile>
+          </archive>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <downloadSources>true</downloadSources>
+          <downloadJavadocs>false</downloadJavadocs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <!--Activated for release-->
+      <id>release</id>
+      <properties>
+        <build.debug>false</build.debug>
+        <build.optimize>true</build.optimize>
+      </properties>
+    </profile>
+  </profiles>
+</project>
