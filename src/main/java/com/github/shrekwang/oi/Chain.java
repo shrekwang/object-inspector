@@ -18,11 +18,11 @@ public abstract class Chain {
     static Chain root(Object value) {
         return new Chain(null, value) {
             @Override
-                public Class<?> getValueType() {
-                    return getValue().getClass();
-                }
+            public Class<?> getValueType() {
+                return getValue().getClass();
+            }
             public String getValueTypeName() {
-                return getValue().getClass().getName();
+                return shortName(getValue().getClass().getName());
             }
         };
     }
@@ -35,6 +35,18 @@ public abstract class Chain {
         return new ArrayIndexChain(this, arrayIndex, value);
     }
 
+    public String getValueName() {
+        return null;
+    }
+
+
+    private static String shortName(String className) {
+        if (className == null ) return "";
+        if (className.indexOf(".") > -1) {
+            className = className.substring(className.lastIndexOf(".")+1);
+        }
+        return className;
+    }
 
     public boolean hasParent() {
         return parent != null;
@@ -70,12 +82,12 @@ public abstract class Chain {
     }
 
 
-    public Object getRoot() {
+    public Chain getRoot() {
         Chain current = this;
         while (current.hasParent()) {
             current = current.getParent();
         }
-        return current.getValue();
+        return current;
     }
 
     Deque<Chain> reverse() {
@@ -126,10 +138,13 @@ public abstract class Chain {
             return field.getType();
         }
         public String getValueTypeName() {
-            return field.getType().getName();
+            return shortName(field.getType().getName());
         }
         public Field getField() {
             return field;
+        }
+        public String getValueName() {
+            return field.getName();
         }
     }
 
@@ -154,7 +169,7 @@ public abstract class Chain {
         }
 
         public String getValueTypeName() {
-            return getParent().getValue().getClass().getComponentType().getName();
+            return shortName(getParent().getValue().getClass().getComponentType().getName());
         }
 
         public int getArrayIndex() {

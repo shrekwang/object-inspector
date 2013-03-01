@@ -14,6 +14,7 @@ public class ObjectFilters {
       Object o = chain.getValue();
       return o instanceof Class<?> || interner.add(o);
     }
+    
   }
 
   public static final ObjectFilter<Chain> notEnumFieldsOrClasses = new ObjectFilter<Chain>(){
